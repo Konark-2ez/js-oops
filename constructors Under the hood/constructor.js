@@ -23,10 +23,21 @@ User.prototype.logout = function(){
     
     console.log(this.email,"has logged out and is offline") 
 }
-
+function Admin(...args){
+   console.log(args);
+   User.apply(this,args);
+   this.role ="super admin"
+}
+Admin.prototype = Object.create(User.prototype)
+Admin.prototype.deleteUser = function(u){
+   users = users.filter(user=>{
+    return user.email != u.email
+   })
+}
 
 var userOne = new User("konark@gmail.com","Konark")
 var userTwo = new User("test@gmail.com","test")
-console.log(userOne)
-userOne.login()
-userTwo.login()
+var admin = new Admin("admin@gmail.com","admin")
+
+var users = [userOne,userTwo,admin]
+console.log(admin)
